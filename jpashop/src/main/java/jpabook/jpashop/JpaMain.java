@@ -1,4 +1,7 @@
-package hellojpa;
+package jpabook.jpashop;
+
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,39 +12,18 @@ public class JpaMain {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-
         EntityManager em = emf.createEntityManager();
-
         EntityTransaction tx = em.getTransaction();
+
         tx.begin();
-
         try {
-            // 저장
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            em.flush();
-            em.clear();
-
-            Member member2 = em.find(Member.class, member.getId());
-
-            String name = member2.getTeam().getName();
-
-            System.out.println(name);
-
+            Order order = em.find(Order.class, 1L);
             tx.commit();
         } catch (Exception e) {
-            tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
         emf.close();
-
     }
 }
