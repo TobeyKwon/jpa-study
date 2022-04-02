@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Category {
+public class Category extends BaseEntity {
     @Id
     @Column(name = "CATEGORY_ID")   @GeneratedValue
     private Long id;
