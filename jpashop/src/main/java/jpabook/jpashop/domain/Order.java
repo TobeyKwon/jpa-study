@@ -16,15 +16,18 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-    @OneToMany(mappedBy = "item")
-    private List<OrderItem> orderitems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     private Date orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
@@ -50,14 +53,6 @@ public class Order {
         this.member = member;
     }
 
-    public List<OrderItem> getOrderitems() {
-        return orderitems;
-    }
-
-    public void setOrderitems(List<OrderItem> orderitems) {
-        this.orderitems = orderitems;
-    }
-
     public Date getOrderDate() {
         return orderDate;
     }
@@ -72,5 +67,21 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 }
