@@ -25,8 +25,6 @@ public class Team {
         members.add(member);
     }
 
-
-
     public Long getId() {
         return id;
     }
