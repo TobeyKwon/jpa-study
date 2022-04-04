@@ -19,21 +19,20 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Child child1 = new Child();
-            Child child2 = new Child();
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setHomeAddress(new Address("homeCity", "street", "10000"));
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
 
-            em.persist(parent);
+            member.getAddressHistory().add(new AddressEntity("old", "street", "10000"));
+            member.getAddressHistory().add(new AddressEntity("old", "street", "10000"));
+
+            em.persist(member);
 
             em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
-
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
@@ -43,13 +42,5 @@ public class JpaMain {
         }
         emf.close();
 
-    }
-
-    private static Member saveMember(EntityManager em) {
-        Member member = new Member();
-        member.setUsername("member1");
-
-        em.persist(member);
-        return member;
     }
 }
